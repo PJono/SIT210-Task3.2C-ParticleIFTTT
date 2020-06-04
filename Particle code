@@ -1,0 +1,22 @@
+int photoresistor = A0;
+int analogValue;
+bool sunlight = false;
+
+void setup() {
+  pinMode(photoresistor,INPUT);
+
+}
+
+void loop() {
+    analogValue = analogRead(photoresistor);
+    if (sunlight == true && analogValue < 3700){
+        sunlight = false;
+        Particle.publish("Sunlight","False",PRIVATE);
+    }
+    if (sunlight == false && analogValue > 3700){
+        sunlight = true;
+        Particle.publish("Sunlight","True",PRIVATE);
+    }
+    delay(4000);
+    
+}
